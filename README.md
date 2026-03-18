@@ -76,11 +76,6 @@ The project is pre-configured to run with **Zero Setup**.
 
 ---
 
-## ☁️ Deployment
-
-For instructions on how to host this project on **Vercel**, **Render**, and **MongoDB Atlas**, check out the [Hosting Guide](./brain/hosting_guide.md).
-
----
 
 ## 📝 License
 This project is licensed under the MIT License.
