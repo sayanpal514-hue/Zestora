@@ -26,7 +26,18 @@ Zestora is a high-performance, full-stack eCommerce platform built with the MERN
 
 ---
 
-## 🚀 Getting Started (Live View)
+## 🌐 Public Live Demo
+
+You can test the latest version of Zestora instantly via this public link:
+👉 **[https://good-roses-follow.loca.lt](https://good-roses-follow.loca.lt)**
+
+> [!IMPORTANT]
+> **Verification Required**: When you click the link, you will see a localtunnel verification page. Please enter this IP address to proceed:
+> **`118.91.191.200`**
+
+---
+
+## 🚀 Getting Started (Local Development)
 
 The project is pre-configured to run with **Zero Setup**.
 
