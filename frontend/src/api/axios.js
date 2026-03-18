@@ -2,7 +2,10 @@ import axios from 'axios';
 
 const API = axios.create({
   baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api',
-  headers: { 'Content-Type': 'application/json' },
+  headers: { 
+    'Content-Type': 'application/json',
+    'bypass-tunnel-reminder': 'true'
+  },
 });
 
 // Attach JWT token to every request from localStorage
