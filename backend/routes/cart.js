@@ -23,6 +23,11 @@ router.get('/', protect, async (req, res) => {
 router.post('/', protect, async (req, res) => {
   try {
     const { productId, qty } = req.body;
+    console.log('Cart POST - productId:', productId, 'qty:', qty);
+
+    if (!productId) {
+      return res.status(400).json({ message: 'Product ID is required' });
+    }
 
     const product = await Product.findById(productId);
     if (!product) return res.status(404).json({ message: 'Product not found' });
@@ -30,21 +35,28 @@ router.post('/', protect, async (req, res) => {
     let cart = await Cart.findOne({ user: req.user._id });
 
     if (!cart) {
-      cart = new Cart({ user: req.user._id, items: [{ product: productId, qty }] });
+      cart = new Cart({ user: req.user._id, items: [{ product: productId, qty: (qty || 1) }] });
     } else {
-      const itemIndex = cart.items.findIndex((i) => i.product.toString() === productId);
+      // Filter out any corrupted items where product is undefined/null
+      cart.items = cart.items.filter(i => i && i.product);
+      
+      const itemIndex = cart.items.findIndex(
+        (i) => i.product && i.product.toString() === productId.toString()
+      );
+
       if (itemIndex > -1) {
-        cart.items[itemIndex].qty = qty;
+        cart.items[itemIndex].qty += (qty || 1);
       } else {
-        cart.items.push({ product: productId, qty });
+        cart.items.push({ product: productId, qty: (qty || 1) });
       }
     }
 
     await cart.save();
-    const populated = await cart.populate('items.product');
+    const populated = await Cart.findById(cart._id).populate('items.product');
     res.json(populated);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error('Cart POST detailed error:', error);
+    res.status(500).json({ message: error.message || 'Error adding to cart' });
   }
 });
 
@@ -57,12 +69,12 @@ router.put('/:productId', protect, async (req, res) => {
     const cart = await Cart.findOne({ user: req.user._id });
     if (!cart) return res.status(404).json({ message: 'Cart not found' });
 
-    const item = cart.items.find((i) => i.product.toString() === req.params.productId);
+    const item = cart.items.find((i) => i.product && i.product.toString() === req.params.productId);
     if (!item) return res.status(404).json({ message: 'Item not in cart' });
 
     item.qty = qty;
     await cart.save();
-    const populated = await cart.populate('items.product');
+    const populated = await Cart.findById(cart._id).populate('items.product');
     res.json(populated);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -77,9 +89,9 @@ router.delete('/:productId', protect, async (req, res) => {
     const cart = await Cart.findOne({ user: req.user._id });
     if (!cart) return res.status(404).json({ message: 'Cart not found' });
 
-    cart.items = cart.items.filter((i) => i.product.toString() !== req.params.productId);
+    cart.items = cart.items.filter((i) => i.product && i.product.toString() !== req.params.productId);
     await cart.save();
-    const populated = await cart.populate('items.product');
+    const populated = await Cart.findById(cart._id).populate('items.product');
     res.json(populated);
   } catch (error) {
     res.status(500).json({ message: error.message });

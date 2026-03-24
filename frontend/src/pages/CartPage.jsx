@@ -32,45 +32,45 @@ export default function CartPage() {
       
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-4">
-          {cart.items.map((item) => (
-            <div key={item.product._id} className="card p-4 sm:p-6 flex flex-col sm:flex-row gap-6">
-              <Link to={`/products/${item.product._id}`} className="shrink-0">
+          {cart.items.map((item, index) => (
+            <div key={item.product?._id || index} className="card p-4 sm:p-6 flex flex-col sm:flex-row gap-6">
+              <Link to={`/products/${item.product?._id}`} className="shrink-0">
                 <div className="w-full sm:w-32 h-32 rounded-xl overflow-hidden bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
-                  <img src={item.product.image} alt={item.product.title} className="w-full h-full object-cover" />
+                  <img src={item.product?.image} alt={item.product?.title} className="w-full h-full object-cover" />
                 </div>
               </Link>
               
               <div className="flex-1 flex flex-col">
                 <div className="flex justify-between items-start gap-4 mb-2">
-                  <Link to={`/products/${item.product._id}`}>
+                  <Link to={`/products/${item.product?._id}`}>
                     <h3 className="text-lg font-bold text-gray-900 dark:text-white hover:text-orange-500 transition-colors line-clamp-2">
-                      {item.product.title}
+                      {item.product?.title}
                     </h3>
                   </Link>
                   <span className="text-xl font-extrabold text-gray-900 dark:text-white whitespace-nowrap">
-                    ₹{item.product.price.toLocaleString('en-IN')}
+                    ₹{item.product?.price?.toLocaleString('en-IN')}
                   </span>
                 </div>
                 
-                <p className="text-sm text-gray-500 mb-4">{item.product.brand}</p>
+                <p className="text-sm text-gray-500 mb-4">{item.product?.brand}</p>
                 
                 <div className="mt-auto flex items-center justify-between">
                   <div className="flex items-center w-28 px-3 py-1.5 bg-gray-100 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
                     <button 
-                      onClick={() => updateQty(item.product._id, item.qty - 1)}
+                      onClick={() => updateQty(item.product?._id, item.qty - 1)}
                       disabled={item.qty <= 1}
                       className="text-gray-500 hover:text-orange-500 disabled:opacity-50"
                     ><FiMinus size={14} /></button>
                     <span className="flex-1 text-center font-bold text-gray-900 dark:text-white text-sm">{item.qty}</span>
                     <button 
-                      onClick={() => updateQty(item.product._id, item.qty + 1)}
-                      disabled={item.qty >= item.product.stock}
+                      onClick={() => updateQty(item.product?._id, item.qty + 1)}
+                      disabled={item.qty >= item.product?.stock}
                       className="text-gray-500 hover:text-orange-500 disabled:opacity-50"
                     ><FiPlus size={14} /></button>
                   </div>
                   
                   <button 
-                    onClick={() => removeFromCart(item.product._id)}
+                    onClick={() => removeFromCart(item.product?._id)}
                     className="flex items-center gap-1.5 text-sm font-semibold text-red-500 hover:text-red-600 bg-red-50 dark:bg-red-900/20 px-3 py-1.5 rounded-lg transition-colors"
                   >
                     <FiTrash2 /> Remove

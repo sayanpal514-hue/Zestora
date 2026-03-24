@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const Product = require('../models/Product');
 const Order = require('../models/Order');
+const Cart = require('../models/Cart');
 
 const sampleProducts = [
   {
@@ -163,6 +164,97 @@ const sampleProducts = [
     numReviews: 156,
     isFeatured: false,
   },
+  {
+    title: 'Digital Air Fryer 5L',
+    description: 'Crispy, fried taste with 90% less oil. 8 preset programs and touch control.',
+    price: 5499,
+    originalPrice: 7999,
+    image: 'https://images.unsplash.com/photo-1594833211511-0985c638367a?w=500',
+    category: 'Home & Kitchen',
+    brand: 'Philips',
+    stock: 45,
+    rating: 4.7,
+    numReviews: 156,
+    isFeatured: false,
+  },
+  {
+    title: 'Double Wall Glass Coffee Mug (Set of 2)',
+    description: 'Keep your coffee hot and your hands cool. Elegant design for the perfect morning.',
+    price: 899,
+    originalPrice: 1299,
+    image: 'https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=500',
+    category: 'Home & Kitchen',
+    brand: 'Bormioli',
+    stock: 120,
+    rating: 4.5,
+    numReviews: 88,
+    isFeatured: false,
+  },
+  {
+    title: 'Adjustable Dumbbells (Pair)',
+    description: 'Switch between 2.5kg to 24kg with a turn of a dial. Space-saving home gym solution.',
+    price: 18999,
+    originalPrice: 24999,
+    image: 'https://images.unsplash.com/photo-1586401100295-7a8096fd231a?w=500',
+    category: 'Sports',
+    brand: 'Bowflex',
+    stock: 25,
+    rating: 4.8,
+    numReviews: 92,
+    isFeatured: false,
+  },
+  {
+    title: 'Anti-Pollution Face Serum',
+    description: 'Vitamin C and Hyaluronic Acid for glowing, protected skin. 30ml bottle.',
+    price: 699,
+    originalPrice: 999,
+    image: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=500',
+    category: 'Beauty',
+    brand: 'Minimalist',
+    stock: 200,
+    rating: 4.6,
+    numReviews: 342,
+    isFeatured: true,
+  },
+  {
+    title: 'Hydrating Night Cream',
+    description: 'Deep moisture replenishment with ceramides and peptides. Wake up to soft skin.',
+    price: 1249,
+    originalPrice: 1599,
+    image: 'https://images.unsplash.com/photo-1556227702-d1e4e7b5c232?w=500',
+    category: 'Beauty',
+    brand: 'Cetaphil',
+    stock: 150,
+    rating: 4.7,
+    numReviews: 215,
+    isFeatured: false,
+  },
+  {
+    title: 'Remote Control Supercar',
+    description: '1:14 scale high-speed racing car with working lights and rechargeable battery.',
+    price: 2499,
+    originalPrice: 3499,
+    image: 'https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=500',
+    category: 'Toys',
+    brand: 'Maisto',
+    stock: 60,
+    rating: 4.4,
+    numReviews: 103,
+    isFeatured: true,
+  },
+  {
+    title: 'Belgian Dark Chocolate Box',
+    description: 'Assorted premium dark chocolates with 70% cocoa content. Perfect for gifting.',
+    price: 1199,
+    originalPrice: 1499,
+    image: 'https://images.unsplash.com/photo-1549007994-cb92caebd5dc?w=500',
+    category: 'Food',
+    brand: 'Lindt',
+    stock: 300,
+    rating: 4.9,
+    numReviews: 541,
+    isFeatured: false,
+  },
 ];
 
 const seedData = async (silent = false) => {
@@ -171,6 +263,7 @@ const seedData = async (silent = false) => {
     await User.deleteMany();
     await Product.deleteMany();
     await Order.deleteMany();
+    await Cart.deleteMany();
 
     if (!silent) console.log('🗑️  Cleared existing data');
 
@@ -209,6 +302,7 @@ const destroyData = async (silent = false) => {
     await User.deleteMany();
     await Product.deleteMany();
     await Order.deleteMany();
+    await Cart.deleteMany();
     if (!silent) console.log('🗑️  All data destroyed');
   } catch (error) {
     if (!silent) console.error('❌ Error:', error.message);

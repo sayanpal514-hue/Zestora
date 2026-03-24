@@ -28,6 +28,10 @@ export default function HomePage() {
     { name: 'Fashion', image: 'https://images.unsplash.com/photo-1445205170230-053b83016050?w=500', color: 'bg-pink-500' },
     { name: 'Books', image: 'https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=500', color: 'bg-yellow-500' },
     { name: 'Sports', image: 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=500', color: 'bg-green-500' },
+    { name: 'Home & Kitchen', image: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=500', color: 'bg-orange-500' },
+    { name: 'Beauty', image: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=500', color: 'bg-purple-500' },
+    { name: 'Toys', image: 'https://images.unsplash.com/photo-1539627831859-a911cf04d3cd?w=500', color: 'bg-red-500' },
+    { name: 'Food', image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=500', color: 'bg-yellow-600' },
   ];
 
   return (
